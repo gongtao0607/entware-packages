@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=conntrack-tools
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://git.netfilter.org/conntrack-tools
@@ -50,8 +50,8 @@ CONFIGURE_ARGS += \
 	--with-libtirpc
 
 define Package/conntrack/install
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/conntrack $(1)/usr/sbin/
+	$(INSTALL_DIR) $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/conntrack $(1)/opt/sbin/
 endef
 
 define Package/conntrackd
@@ -60,7 +60,7 @@ $(call Package/conntrack-tools/default)
 endef
 
 define Package/conntrackd/conffiles
-/etc/conntrackd/
+/opt/etc/conntrackd/
 endef
 
 define Package/conntrackd/description
@@ -71,11 +71,11 @@ endef
 
 define Package/conntrackd/install
 	$(INSTALL_DIR) \
-		$(1)/etc/conntrackd \
-		$(1)/etc/init.d \
-		$(1)/usr/sbin
-	$(INSTALL_BIN) 	$(PKG_INSTALL_DIR)/usr/sbin/conntrackd $(1)/usr/sbin/
-	$(INSTALL_BIN) ./files/conntrackd.init $(1)/etc/init.d/conntrackd
+		$(1)/opt/etc/conntrackd \
+		$(1)/opt/etc/init.d \
+		$(1)/opt/sbin
+	$(INSTALL_BIN) 	$(PKG_INSTALL_DIR)/opt/sbin/conntrackd $(1)/opt/sbin/
+	$(INSTALL_BIN) ./files/S50conntrackd.init $(1)/opt/etc/init.d/S50conntrackd
 endef
 
 $(eval $(call BuildPackage,conntrack))
